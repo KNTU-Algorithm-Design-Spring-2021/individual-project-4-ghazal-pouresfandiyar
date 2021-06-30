@@ -1,25 +1,29 @@
 package ir.ac.kntu;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class FordFolkerson {
     private boolean[] marked;
     private Edge[] edgeTo;
     private double value;
+    private List<Integer> path = new ArrayList<>();
 
     public FordFolkerson(FlowNetwork G, int s, int t){
         value = 0;
         while (hasAugmentingPAth(G, s, t)){
             double bottle = Double.POSITIVE_INFINITY;
-            for (int v = t; v != s; v = edgeTo[v].other(v))
+            for (int v = t; v != s; v = edgeTo[v].other(v)) {
                 bottle = Math.min(bottle, edgeTo[v].residualCapacityTo(v));
+            }
             for (int v = t; v != s; v = edgeTo[v].other(v))
                 edgeTo[v].addResidualFlowTo(v, bottle);
             value += bottle;
         }
     }
-    //BFS to find path
+
     public boolean hasAugmentingPAth(FlowNetwork G, int s, int t){
         edgeTo = new Edge[G.v()];
         marked = new boolean[G.v()];

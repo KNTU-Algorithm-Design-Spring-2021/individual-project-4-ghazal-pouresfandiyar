@@ -26,14 +26,6 @@ public class Edge {
         throw new RuntimeException("Illegal endpoint!");
     }
 
-    public double getCapacity(){
-        return capacity;
-    }
-
-    public double getFlow(){
-        return flow;
-    }
-
     public double residualCapacityTo(int vertex){
         if (vertex == v)
             return flow;
